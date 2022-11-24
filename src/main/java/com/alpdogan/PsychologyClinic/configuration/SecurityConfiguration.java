@@ -57,10 +57,11 @@ public class SecurityConfiguration {
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
+        //html files will be uploaded and updated for antMatchers
         http.authorizeRequests()
-                .antMatchers("/employee/fetchall").hasAuthority("THERAPIST")
-                .antMatchers("/employee/fetch/*").hasAnyAuthority("CLIENT", "THERAPIST")
-                .antMatchers("/employee/*").permitAll()
+                .antMatchers("/").hasAuthority("THERAPIST")
+                .antMatchers("/").hasAnyAuthority("CLIENT", "THERAPIST")
+                .antMatchers("/").permitAll()
                 .and().formLogin();
 
         return http.build();
