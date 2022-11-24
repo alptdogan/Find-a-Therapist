@@ -5,7 +5,9 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -26,4 +28,16 @@ public class Therapist {
 
     private List<Clients> clients;
 
+    @NotBlank
+    private String userName;
+    @NotBlank
+    private String password;
+
+    private List<GrantedAuthority> therapistRoles;
+
+    public Therapist(String userName, String password, List<GrantedAuthority> therapistRoles) {
+        this.userName = userName;
+        this.password = password;
+        this.therapistRoles = therapistRoles;
+    }
 }
