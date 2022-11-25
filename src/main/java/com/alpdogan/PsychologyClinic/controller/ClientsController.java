@@ -1,8 +1,11 @@
 package com.alpdogan.PsychologyClinic.controller;
 
 import com.alpdogan.PsychologyClinic.entity.Clients;
+import com.alpdogan.PsychologyClinic.entity.Therapist;
 import com.alpdogan.PsychologyClinic.service.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,34 +18,37 @@ public class ClientsController {
     private ClientsService clientsService;
 
     @GetMapping("/all")
-    public List<Clients> getAllClients() {
-        return clientsService.getAllClients();
+    public ResponseEntity<List<Clients>> getAllClients() {
+        List<Clients> clients = clientsService.getAllClients();
+        return new ResponseEntity<>(clients, HttpStatus.OK);
     }
 
     @GetMapping("/get/{_id}")
-    public Clients getClientById(@PathVariable("id") int id) {
+    public ResponseEntity<Clients> getClientById(@PathVariable("id") int id) {
        Clients clients = clientsService.getClientById(id);
-       return clients;
+        return new ResponseEntity<>(clients, HttpStatus.OK);
     }
 
     @ResponseBody
     @PostMapping("/add")
-    public Clients addClient(@RequestBody Clients clients) {
+    public ResponseEntity<Clients> addClient(@RequestBody Clients clients) {
         clientsService.createClient(clients);
-        return clients;
+        return new ResponseEntity<>(clients, HttpStatus.OK);
     }
 
     @ResponseBody
     @PutMapping("/update/{_id}")
-    public String updateClient(@PathVariable("id") int id, @RequestBody Clients clients) {
+    public ResponseEntity<String> updateClient(@PathVariable("id") int id, @RequestBody Clients clients) {
         clientsService.updateClientById(id, clients);
-        return clients + " is updated.";
+        String saveText = clients + " is updated.";
+        return new ResponseEntity<>(saveText, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{_id}")
-    public String deleteClient(@PathVariable("id") int id) {
+    public ResponseEntity<String> deleteClient(@PathVariable("id") int id) {
         clientsService.deleteClient(id);
-        return "The client has been deleted.";
+        String deleteText = "The client has been deleted.";
+        return new ResponseEntity<>(deleteText, HttpStatus.OK);
     }
 
 }

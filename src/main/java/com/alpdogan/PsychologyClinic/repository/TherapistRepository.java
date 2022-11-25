@@ -11,6 +11,8 @@ import java.util.List;
 @Repository
 public interface TherapistRepository extends MongoRepository<Therapist, Integer> {
 
+    Therapist findByUsername(String userName);
+
     Therapist findBy_id(int _id);
 
     @Query("{'Clients.firstName':?0}")

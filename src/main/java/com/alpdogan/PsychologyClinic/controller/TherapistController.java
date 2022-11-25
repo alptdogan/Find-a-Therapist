@@ -4,6 +4,8 @@ import com.alpdogan.PsychologyClinic.entity.Clients;
 import com.alpdogan.PsychologyClinic.entity.Therapist;
 import com.alpdogan.PsychologyClinic.service.TherapistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,39 +18,43 @@ public class TherapistController {
     private TherapistService therapistService;
 
     @GetMapping("/clients")
-    public List<Clients> getClientByFirstName(@PathVariable String firstName) {
-        return therapistService.getClientByFirstName(firstName);
+    public ResponseEntity<List<Clients>> getClientByFirstName(@PathVariable String firstName) {
+        List<Clients> clients =  therapistService.getClientByFirstName(firstName);
+        return new ResponseEntity<>(clients, HttpStatus.OK);
     }
 
     @GetMapping("/all")
-    public List<Therapist> getAllTherapists() {
-        return therapistService.getAllTherapists();
+    public ResponseEntity<List<Therapist>> getAllTherapists() {
+        List<Therapist> therapists = therapistService.getAllTherapists();
+        return new ResponseEntity<>(therapists, HttpStatus.OK);
     }
 
     @GetMapping("/get/{_id}")
-    public Therapist getTherapistById(@PathVariable("id") int id) {
+    public ResponseEntity<Therapist> getTherapistById(@PathVariable("id") int id) {
         Therapist therapist = therapistService.getTherapistById(id);
-        return therapist;
+        return new ResponseEntity<>(therapist, HttpStatus.OK);
     }
 
     @ResponseBody
     @PostMapping("/add")
-    public Therapist addTherapist(@RequestBody Therapist therapist) {
+    public ResponseEntity<Therapist> addTherapist(@RequestBody Therapist therapist) {
         therapistService.createTherapist(therapist);
-        return therapist;
+        return new ResponseEntity<>(therapist, HttpStatus.OK);
     }
 
     @ResponseBody
     @PutMapping("/update/{_id}")
-    public String updateTherapist(@PathVariable("id") int id, @RequestBody Therapist therapist) {
+    public ResponseEntity<String> updateTherapist(@PathVariable("id") int id, @RequestBody Therapist therapist) {
         therapistService.updateTherapistById(id, therapist);
-        return therapist + " is updated.";
+        String saveText = "The therapist has been updated.";
+        return new ResponseEntity<>(saveText, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{_id}")
-    public String deleteTherapist(@PathVariable("id") int id) {
+    public ResponseEntity<String> deleteTherapist(@PathVariable("id") int id) {
         therapistService.deleteTherapist(id);
-        return "The therapist has been deleted.";
+        String deleteText = "The therapist has been deleted.";
+        return new ResponseEntity<>(deleteText, HttpStatus.OK);
     }
 
 }
