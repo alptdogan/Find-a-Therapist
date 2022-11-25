@@ -1,71 +1,102 @@
 package com.alpdogan.PsychologyClinic.configuration;
 
-import com.alpdogan.PsychologyClinic.entity.Clients;
-import com.alpdogan.PsychologyClinic.entity.Therapist;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.ArrayList;
-import java.util.List;
 
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@RequiredArgsConstructor
 public class SecurityConfiguration {
 
     @Bean
-    protected InMemoryUserDetailsManager configureAuthentication() {
-
-        List<UserDetails> userDetails = new ArrayList<>();
-
-        List<GrantedAuthority> clientRoles = new ArrayList<>();
-        clientRoles.add(new SimpleGrantedAuthority("CLIENT"));
-
-        List<GrantedAuthority> therapistRoles = new ArrayList<>();
-        therapistRoles.add(new SimpleGrantedAuthority("THERAPIST"));
-
-        //the userName and the password are the same here
-        userDetails.add((UserDetails) new Clients("gokaycimen",
-                "$2a$10$Q9smVn4D6iICd/KiP9ZnnuHoD.mw8QM2iPUW4nMOzQTkGpdWhfDYm",
-                clientRoles));
-
-        //the userName and the password are the same here also
-        userDetails.add((UserDetails) new Therapist("alptugdogan",
-                "$2a$10$qEvT82u7FBV1V72jd.OSAOEoZA5xiaWrm0vSeINGsvfQH58mzuBSW",
-                therapistRoles));
-
-        return new InMemoryUserDetailsManager(userDetails);
-
+    public UserDetailsService userDetailsService() {
+        return new CustomUserDetailService();
     }
 
     @Bean
-    public PasswordEncoder getPasswordEncoder() {
-
-        return new BCryptPasswordEncoder(10);
-
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
-    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-        //html files will be uploaded and updated for antMatchers
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/").hasAuthority("THERAPIST")
-                .antMatchers("/").hasAnyAuthority("CLIENT", "THERAPIST")
-                .antMatchers("/").permitAll()
-                .and().formLogin();
+                .antMatchers(HttpMethod.GET, "/therapist/clients").permitAll()
+                .and()
+               // .csrf().disable()
+                .formLogin().permitAll();
 
         return http.build();
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() throws Exception {
+        return (web) -> web.ignoring().antMatchers("/");
+    }
+
+
+
+
+   /* @Bean
+    protected void configure (AuthenticationManagerBuilder authenticationMB) throws Exception
+    {
+        authenticationMB.inMemoryAuthentication()
+                .withUser("gokaycimen")
+                .password("{noop}gokaycimen")
+                .roles("CLIENT")
+                .and()
+                .withUser("alptugdogan")
+                .password("{noop}alptugdogan")
+                .roles("THERAPIST");
 
     }
 
+    */
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
