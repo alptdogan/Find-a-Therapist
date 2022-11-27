@@ -4,67 +4,57 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 
 @Configuration
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
-//@RequiredArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@RequiredArgsConstructor
 public class SecurityConfiguration {
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        return new CustomUserDetailService();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/therapist/clients").permitAll()
-                .and()
-               // .csrf().disable()
-                .formLogin().permitAll();
-
-        return http.build();
-    }
-
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() throws Exception {
-        return (web) -> web.ignoring().antMatchers("/");
-    }
-
-
-
-
-   /* @Bean
-    protected void configure (AuthenticationManagerBuilder authenticationMB) throws Exception
-    {
-        authenticationMB.inMemoryAuthentication()
-                .withUser("gokaycimen")
-                .password("{noop}gokaycimen")
+    public InMemoryUserDetailsManager userDetailsService() {
+        UserDetails user = User.withDefaultPasswordEncoder()
+                .username("client")
+                .password("client")
                 .roles("CLIENT")
-                .and()
-                .withUser("alptugdogan")
-                .password("{noop}alptugdogan")
-                .roles("THERAPIST");
-
+                .build();
+        UserDetails admin = User.withDefaultPasswordEncoder()
+                .username("therapist")
+                .password("therapist")
+                .roles("THERAPIST")
+                .build();
+        return new InMemoryUserDetailsManager(user, admin);
     }
 
-    */
-
-
+    @Bean
+    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+        return http
+                .csrf(csrf -> csrf.disable())
+                .authorizeRequests(auth -> {
+                    try {
+                        auth.antMatchers("/home").permitAll()
+                        //auth.antMatchers("/user").hasRole("USER");
+                        // auth.antMatchers("/admin").hasRole("ADMIN");
+                        .and().formLogin().loginPage("/login")
+                                .defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll()
+                                .and().logout().logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .httpBasic(withDefaults())
+                .build();
+    }
 
 }
 

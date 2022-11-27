@@ -6,6 +6,7 @@ import com.alpdogan.PsychologyClinic.service.TherapistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,10 +18,17 @@ public class TherapistController {
     @Autowired
     private TherapistService therapistService;
 
-    @GetMapping("/clients")
-    public ResponseEntity<List<Clients>> getClientByFirstName(@PathVariable String firstName) {
-        List<Clients> clients =  therapistService.getClientByFirstName(firstName);
-        return new ResponseEntity<>(clients, HttpStatus.OK);
+    @GetMapping("/username")
+    public ResponseEntity<Therapist> getTherapistByUsername(@PathVariable String username) {
+        Therapist therapist =  therapistService.getTherapistByUsername(username);
+        return new ResponseEntity<>(therapist, HttpStatus.OK);
+    }
+
+    @GetMapping("/clients/{firstName}")
+    public String getClientByFirstName(@PathVariable String firstName, Model model) {
+        Therapist therapist = (Therapist) therapistService.getClientByFirstName(firstName);
+        model.addAttribute("therapist", therapist);
+        return "list-therapists.html";
     }
 
     @GetMapping("/all")

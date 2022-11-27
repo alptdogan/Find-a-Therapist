@@ -29,14 +29,14 @@ public class Therapist {
     private List<Clients> clients;
 
     @NotBlank
-    private String userName;
+    private String username;
     @NotBlank
     private String password;
 
     private List<GrantedAuthority> therapistRoles;
 
-    public Therapist(String userName, String password, List<GrantedAuthority> therapistRoles) {
-        this.userName = userName;
+    public Therapist(String username, String password, List<GrantedAuthority> therapistRoles) {
+        this.username = username;
         this.password = password;
         this.therapistRoles = therapistRoles;
     }

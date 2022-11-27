@@ -15,6 +15,10 @@ public class TherapistService {
     @Autowired
     public TherapistRepository therapistRepository;
 
+    public Therapist getTherapistByUsername(String username) {
+        return therapistRepository.findByUsername(username);
+    }
+
     public List<Clients> getClientByFirstName(String firstName) {
         return therapistRepository.findByFirstName(firstName);
     }
