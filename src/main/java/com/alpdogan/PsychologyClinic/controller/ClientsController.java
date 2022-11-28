@@ -1,27 +1,72 @@
 package com.alpdogan.PsychologyClinic.controller;
 
 import com.alpdogan.PsychologyClinic.entity.Clients;
-import com.alpdogan.PsychologyClinic.entity.Therapist;
 import com.alpdogan.PsychologyClinic.service.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/clients")
 public class ClientsController {
 
     @Autowired
     private ClientsService clientsService;
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Clients>> getAllClients() {
+    @GetMapping
+    public String displayClients (Model model) {
+
         List<Clients> clients = clientsService.getAllClients();
-        return new ResponseEntity<>(clients, HttpStatus.OK);
+        model.addAttribute("clients", clients);
+
+        return "list-clients";
+
     }
+
+    @GetMapping("/new")
+    public String displayClientForm (Model model) {
+
+        Clients clients = new Clients();
+        model.addAttribute("clients", clients);
+
+        return "new-client";
+
+    }
+
+    @PostMapping("/addClient")
+    public String createClient (Model model, Clients client) {
+
+        clientsService.createClient(client);
+
+        return "redirect:/clients";
+
+    }
+
+    @GetMapping("/update")
+    public String displayClientUpdateForm(@RequestParam("id") int id, Model model) {
+
+        Clients clients = clientsService.getClientById(id);
+        model.addAttribute("clients", clients);
+
+        return "new-client";
+
+    }
+
+    @DeleteMapping("/delete")
+    public String deleteClient(@RequestParam("id") int id, Model model) {
+
+        clientsService.deleteClient(id);
+
+        return "redirect:/clients";
+
+    }
+
+
+
+    /*
 
     @GetMapping("/get/{_id}")
     public ResponseEntity<Clients> getClientById(@PathVariable("id") int id) {
@@ -29,27 +74,7 @@ public class ClientsController {
         return new ResponseEntity<>(clients, HttpStatus.OK);
     }
 
-    @ResponseBody
-    @PostMapping("/add")
-    public ResponseEntity<Clients> addClient(@RequestBody Clients clients) {
-        clientsService.createClient(clients);
-        return new ResponseEntity<>(clients, HttpStatus.OK);
-    }
-
-    @ResponseBody
-    @PutMapping("/update/{_id}")
-    public ResponseEntity<String> updateClient(@PathVariable("id") int id, @RequestBody Clients clients) {
-        clientsService.updateClientById(id, clients);
-        String saveText = clients + " is updated.";
-        return new ResponseEntity<>(saveText, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/delete/{_id}")
-    public ResponseEntity<String> deleteClient(@PathVariable("id") int id) {
-        clientsService.deleteClient(id);
-        String deleteText = "The client has been deleted.";
-        return new ResponseEntity<>(deleteText, HttpStatus.OK);
-    }
+     */
 
 }
 
