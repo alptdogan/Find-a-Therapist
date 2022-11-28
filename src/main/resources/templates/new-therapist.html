@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Add Therapist</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+
+</head>
+
+<body>
+<div th:insert="header :: header"></div>
+
+<br>
+<div class="container my-2">
+
+    <form th:action="@{/therapist/addTherapist}" th:object="${therapist}" method="POST">
+        <input type="hidden" th:field="${owner.id}"/>
+
+        <div class="form-group row">
+            <input type="text" placeholder="First Name" th:field="${therapist.firstname}">
+            <span style="color:red" th:if="${#fields.hasErrors('firstname')}"
+                    th:errors="${therapist.firstname}">
+			</span>
+        </div>
+
+        <div class="form-group row">
+            <input type="text" placeholder="Last Name" th:field="${therapist.lastname}">
+            <span style="color:red" th:if="${#fields.hasErrors('lastname')}"
+                  th:errors="${therapist.lastname}">
+			</span>
+        </div>
+
+        <div class="form-group row">
+            <input type="text" placeholder="Mobile Number" th:field="${therapist.phoneNumber}">
+            <span style="color:red" th:if="${#fields.hasErrors('phoneNumber')}"
+                  th:errors="${therapist.phoneNumber}">
+		</span>
+        </div>
+
+        <div class="form-group row">
+            <input type="text" placeholder="Address" th:field="${therapist.address}">
+            <span style="color:red" th:if="${#fields.hasErrors('address')}"
+                  th:errors="${therapist.address}">
+		</span>
+        </div>
+
+        <div class="form-group row">
+            <input type="text" placeholder="Email Address" th:field="${therapist.email}">
+            <span style="color:red" th:if="${#fields.hasErrors('email')}"
+                  th:errors="${therapist.email}">
+			</span>
+        </div>
+
+        <div class="form-group row">
+            <select th:field="*{clients}" multiple="multiple">
+                <option th:each = "clients : ${allClients}"
+                        th:value = "${clients.id}"
+                        th:text = "${clients.name}">
+                </option>
+            </select>
+        </div>
+
+        <button class="btn btn-info col-2" type="submit">Create Therapist</button>
+
+    </form>
+</div>
+
+</body>
+
+</html>
