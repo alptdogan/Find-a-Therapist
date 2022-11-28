@@ -2,22 +2,83 @@ package com.alpdogan.PsychologyClinic.controller;
 
 import com.alpdogan.PsychologyClinic.entity.Clients;
 import com.alpdogan.PsychologyClinic.entity.Therapist;
+import com.alpdogan.PsychologyClinic.service.ClientsService;
 import com.alpdogan.PsychologyClinic.service.TherapistService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/therapist")
 public class TherapistController {
 
     @Autowired
     private TherapistService therapistService;
 
+    @Autowired
+    private ClientsService clientsService;
+
+    @GetMapping
+    public String displayTherapists(Model model) {
+
+        Iterable<Therapist> therapists = therapistService.getAllTherapists();
+        model.addAttribute("therapists", therapists);
+
+        return "list-therapists";
+
+    }
+
+    @GetMapping("/new")
+    public String displayTherapistForm (Model model) {
+
+        Therapist therapist = new Therapist();
+        List<Clients> clients = clientsService.getAllClients();
+
+        model.addAttribute("therapist", therapist);
+        model.addAttribute("allClients", clients);
+
+        return "new-therapist";
+
+    }
+
+    @PostMapping("/addTherapist")
+    public String createTherapist (Model model, Therapist therapist, @RequestParam List<Integer> clients) {
+
+        therapistService.createTherapist(therapist);
+
+        return "redirect:/therapist";
+
+    }
+
+    @ResponseBody
+    @GetMapping("/update/{_id}")
+    public String displayTherapistUpdateForm(@PathVariable("id") int id, @RequestBody Therapist therapist, Model model) {
+
+        therapistService.updateTherapistById(id, therapist);
+        List<Clients> clients = clientsService.getAllClients();
+
+        model.addAttribute("therapist", therapist);
+        model.addAttribute("allClients", clients);
+
+        return "new-therapist";
+
+    }
+
+    @GetMapping("/delete/{_id}")
+    public String deleteTherapist(@PathVariable("id") int id, Model model) {
+
+        therapistService.getTherapistById(id);
+        therapistService.deleteTherapist(id);
+
+        return "redirect:/therapist";
+
+    }
+
+    /*
+    
     @GetMapping("/username")
     public ResponseEntity<Therapist> getTherapistByUsername(@PathVariable String username) {
         Therapist therapist =  therapistService.getTherapistByUsername(username);
@@ -31,39 +92,13 @@ public class TherapistController {
         return "list-therapists.html";
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Therapist>> getAllTherapists() {
-        List<Therapist> therapists = therapistService.getAllTherapists();
-        return new ResponseEntity<>(therapists, HttpStatus.OK);
-    }
-
     @GetMapping("/get/{_id}")
     public ResponseEntity<Therapist> getTherapistById(@PathVariable("id") int id) {
         Therapist therapist = therapistService.getTherapistById(id);
         return new ResponseEntity<>(therapist, HttpStatus.OK);
     }
 
-    @ResponseBody
-    @PostMapping("/add")
-    public ResponseEntity<Therapist> addTherapist(@RequestBody Therapist therapist) {
-        therapistService.createTherapist(therapist);
-        return new ResponseEntity<>(therapist, HttpStatus.OK);
-    }
-
-    @ResponseBody
-    @PutMapping("/update/{_id}")
-    public ResponseEntity<String> updateTherapist(@PathVariable("id") int id, @RequestBody Therapist therapist) {
-        therapistService.updateTherapistById(id, therapist);
-        String saveText = "The therapist has been updated.";
-        return new ResponseEntity<>(saveText, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/delete/{_id}")
-    public ResponseEntity<String> deleteTherapist(@PathVariable("id") int id) {
-        therapistService.deleteTherapist(id);
-        String deleteText = "The therapist has been deleted.";
-        return new ResponseEntity<>(deleteText, HttpStatus.OK);
-    }
+     */
 
 }
 
