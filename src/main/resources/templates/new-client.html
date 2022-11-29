@@ -20,44 +20,44 @@
 <div class="container">
 
 
-    <form th:action="@{/pet/savePet}" th:object="${pet}" method="POST">
+    <form th:action="@{/clients/savePet}" th:object="${clients}" method="POST">
 
 
         <!--  This will be used to bind to the employee that was clicked on (USED FOR UPDATES)-->
         <input type="hidden" th:field="${clients.id}"/>
 
         <div class="form-group row">
-            <input type="text" placeholder="Species" th:field="${clients.species}">
-            <span style="color:red" th:if="${#fields.hasErrors('species')}"
-                  th:errors="${clients.species}">
+            <input type="text" placeholder="Species" th:field="${clients.firstName}">
+            <span style="color:red" th:if="${#fields.hasErrors('firstName')}"
+                  th:errors="${clients.firstName}">
 			</span>
         </div>
 
         <div class="form-group row">
-            <input type="text" placeholder="Type" th:field="${clients.type}">
-            <span style="color:red" th:if="${#fields.hasErrors('type')}"
-                  th:errors="${clients.type}">
+            <input type="text" placeholder="Type" th:field="${clients.lastName}">
+            <span style="color:red" th:if="${#fields.hasErrors('lastName')}"
+                  th:errors="${clients.lastName}">
 			</span>
         </div>
 
         <div class="form-group row">
-            <input type="text" placeholder="Name" th:field="${clients.name}">
-            <span style="color:red" th:if="${#fields.hasErrors('name')}"
-                  th:errors="${clients.name}">
+            <input type="text" placeholder="Name" th:field="${clients.phoneNumber}">
+            <span style="color:red" th:if="${#fields.hasErrors('phoneNumber')}"
+                  th:errors="${clients.phoneNumber}">
 		</span>
         </div>
 
         <div class="form-group row">
-            <input type="date" placeholder="Birthdate" th:field="${clients.birthdate}">
-            <span style="color:red" th:if="${#fields.hasErrors('birthdate')}"
-                  th:errors="${clients.birthdate}">
+            <input type="date" placeholder="Birthdate" th:field="${clients.email}">
+            <span style="color:red" th:if="${#fields.hasErrors('email')}"
+                  th:errors="${clients.email}">
 		</span>
         </div>
 
         <div class="form-group row">
-            <input type="text" placeholder="Description" th:field="${clients.description}">
-            <span style="color:red" th:if="${#fields.hasErrors('description')}"
-                  th:errors="${clients.description}">
+            <input type="text" placeholder="Description" th:field="${clients.diagnosis}">
+            <span style="color:red" th:if="${#fields.hasErrors('diagnosis')}"
+                  th:errors="${clients.diagnosis}">
 			</span>
         </div>
 
