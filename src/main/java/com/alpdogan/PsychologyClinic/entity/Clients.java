@@ -3,6 +3,7 @@ package com.alpdogan.PsychologyClinic.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 
 
@@ -13,6 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Document(collection = "clients")
 public class Clients {
 
     @NotNull
@@ -22,6 +24,13 @@ public class Clients {
     private String firstName;
     @NotNull
     private String lastName;
+    @NotNull
+    private long phoneNumber;
+    @NotNull
+    private String email;
+
+    private String diagnosis;
+
     @NotBlank
     private String userName;
     @NotBlank

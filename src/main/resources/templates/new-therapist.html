@@ -18,19 +18,19 @@
 <br>
 <div class="container my-2">
 
-    <form th:action="@{/therapist/addTherapist}" th:object="${therapist}" method="POST">
-        <input type="hidden" th:field="${owner.id}"/>
+    <form th:action="@{/therapists/addTherapist}" th:object="${therapist}" method="POST">
+        <input type="hidden" th:field="${therapist.id}"/>
 
         <div class="form-group row">
-            <input type="text" placeholder="First Name" th:field="${therapist.firstname}">
-            <span style="color:red" th:if="${#fields.hasErrors('firstname')}"
+            <input type="text" placeholder="First Name" th:field="${therapist.firstName}">
+            <span style="color:red" th:if="${#fields.hasErrors('firstName')}"
                     th:errors="${therapist.firstname}">
 			</span>
         </div>
 
         <div class="form-group row">
-            <input type="text" placeholder="Last Name" th:field="${therapist.lastname}">
-            <span style="color:red" th:if="${#fields.hasErrors('lastname')}"
+            <input type="text" placeholder="Last Name" th:field="${therapist.lastName}">
+            <span style="color:red" th:if="${#fields.hasErrors('lastName')}"
                   th:errors="${therapist.lastname}">
 			</span>
         </div>
@@ -59,8 +59,8 @@
         <div class="form-group row">
             <select th:field="*{clients}" multiple="multiple">
                 <option th:each = "clients : ${allClients}"
-                        th:value = "${clients.id}"
-                        th:text = "${clients.name}">
+                        th:value = "${clients.firstName}"
+                        th:text = "${clients.lastName}">
                 </option>
             </select>
         </div>

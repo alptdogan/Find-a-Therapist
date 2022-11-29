@@ -64,18 +64,6 @@ public class ClientsController {
 
     }
 
-
-
-    /*
-
-    @GetMapping("/get/{_id}")
-    public ResponseEntity<Clients> getClientById(@PathVariable("id") int id) {
-       Clients clients = clientsService.getClientById(id);
-        return new ResponseEntity<>(clients, HttpStatus.OK);
-    }
-
-     */
-
 }
 
 

@@ -25,6 +25,12 @@ public class Therapist {
     private String firstName;
     @NotNull
     private String lastName;
+    @NotNull
+    private long phoneNumber;
+    @NotNull
+    private String address;
+    @NotNull
+    private String email;
 
     private List<Clients> clients;
 

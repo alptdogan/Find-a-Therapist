@@ -21,7 +21,7 @@
     <hr>
 
     <!--  Add New Therapist Button -->
-    <a th:href="@{/therapist/new}"
+    <a th:href="@{/therapists/new}"
        class="btn btn-primary btn-sm mb-3">
         Add Therapist
     </a>
@@ -32,10 +32,10 @@
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Mobile Number</th>
+            <th>Phone Number</th>
             <th>Address</th>
             <th>Email</th>
-            <th>Pet</th>
+            <th>Clients</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -48,18 +48,18 @@
             <td th:text="${aTherapist.email}"/>
             <td th:text="${aTherapist.clients[0].name}"/>
             <td>
-                <a th:href="@{/therapist/update(id=${aTherapist.id})}"
+                <a th:href="@{/therapists/update(id=${aTherapist.id})}"
                    class="btn btn-info btn-sm">
                     Update
                 </a>
 
-                <a th:href="@{/therapist/delete/(id=${aTherapist.id})}"
+                <a th:href="@{/therapists/delete/(id=${aTherapist.id})}"
                    class="btn btn-danger btn-sm"
                    onClick="if (!(confirm('Are you sure you want to delete this therapist?'))) return false">
                     Delete
                 </a>
 
-                <a th:href="@{/therapist/{id}(id=${aTherapist.id})}"
+                <a th:href="@{/therapists/{id}(id=${aTherapist.id})}"
                    class="btn btn-success btn-sm">
                     Detail
                 </a>
