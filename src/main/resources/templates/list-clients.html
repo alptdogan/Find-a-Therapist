@@ -21,7 +21,7 @@
     <hr>
 
     <!--  Add New Client Button -->
-    <a th:href="@{/client/new}"
+    <a th:href="@{/clients/new}"
        class="btn btn-primary btn-sm mb-3">
         Add Client
     </a>
@@ -46,12 +46,12 @@
             <td th:text="${aClient.birthdate}"/>
             <td th:text="${aClient.description}"/>
             <td>
-                <a th:href="@{/client/update(id=${aClient.id})}"
+                <a th:href="@{/clients/update(id=${aClient.id})}"
                    class="btn btn-info btn-sm">
                     Update
                 </a>
 
-                <a th:href="@{/client/delete/(id=${aClient.id})}"
+                <a th:href="@{/clients/delete/(id=${aClient.id})}"
                    class="btn btn-danger btn-sm"
                    onClick="if (!(confirm('Are you sure you want to delete this therapist?'))) return false">
                     Delete
