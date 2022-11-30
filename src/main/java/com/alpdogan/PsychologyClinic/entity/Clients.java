@@ -3,6 +3,7 @@ package com.alpdogan.PsychologyClinic.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -17,6 +18,7 @@ import java.util.List;
 @Document(collection = "clients")
 public class Clients {
 
+    @Id
     @NotNull
     public int id;
 
