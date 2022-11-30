@@ -13,7 +13,7 @@ public interface TherapistRepository extends MongoRepository<Therapist, Integer>
 
     Therapist findByUsername(String username);
 
-    Therapist findBy_id(int _id);
+    Therapist findById(int id);
 
     @Query("{'Clients.firstName':?0}")
     List<Clients> findByFirstName(String firstName);

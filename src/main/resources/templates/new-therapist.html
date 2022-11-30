@@ -19,41 +19,31 @@
 <div class="container my-2">
 
     <form th:action="@{/therapists/addTherapist}" th:object="${therapist}" method="POST">
-        <input type="hidden" th:field="${therapist.id}"/>
+
+        <!-- <input type="hidden" th:field="${therapist.id}"/> This will be used to bind to the employee that was clicked on (USED FOR UPDATES)-->
+
+        <div class="form-group row">
+            <input type="text" placeholder="Id" th:field="${therapist.id}">
+        </div>
 
         <div class="form-group row">
             <input type="text" placeholder="First Name" th:field="${therapist.firstName}">
-            <span style="color:red" th:if="${#fields.hasErrors('firstName')}"
-                    th:errors="${therapist.firstname}">
-			</span>
         </div>
 
         <div class="form-group row">
             <input type="text" placeholder="Last Name" th:field="${therapist.lastName}">
-            <span style="color:red" th:if="${#fields.hasErrors('lastName')}"
-                  th:errors="${therapist.lastname}">
-			</span>
         </div>
 
         <div class="form-group row">
             <input type="text" placeholder="Mobile Number" th:field="${therapist.phoneNumber}">
-            <span style="color:red" th:if="${#fields.hasErrors('phoneNumber')}"
-                  th:errors="${therapist.phoneNumber}">
-		</span>
         </div>
 
         <div class="form-group row">
             <input type="text" placeholder="Address" th:field="${therapist.address}">
-            <span style="color:red" th:if="${#fields.hasErrors('address')}"
-                  th:errors="${therapist.address}">
-		</span>
         </div>
 
         <div class="form-group row">
             <input type="text" placeholder="Email Address" th:field="${therapist.email}">
-            <span style="color:red" th:if="${#fields.hasErrors('email')}"
-                  th:errors="${therapist.email}">
-			</span>
         </div>
 
         <div class="form-group row">

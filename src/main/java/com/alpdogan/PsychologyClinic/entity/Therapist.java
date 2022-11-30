@@ -19,7 +19,7 @@ public class Therapist {
 
     @Id
     @NotNull
-    private int _id;
+    private int id;
 
     @NotNull
     private String firstName;

@@ -27,25 +27,25 @@ public class TherapistService {
         return this.therapistRepository.findAll();
     }
     @Transactional
-    public Therapist getTherapistById(int _id) {
-        return therapistRepository.findBy_id(_id);
+    public Therapist getTherapistById(int id) {
+        return therapistRepository.findById(id);
     }
 
     @Transactional
     public String createTherapist(Therapist therapist) {
         therapistRepository.save(therapist);
-        return "Therapist Added with id: " + therapist.get_id();
+        return "Therapist Added with id: " + therapist.getId();
     }
 
     @Transactional
-    public void updateTherapistById(int _id, Therapist therapist) {
-        therapist.set_id(_id);
+    public void updateTherapistById(int id, Therapist therapist) {
+        therapist.setId(id);
         therapistRepository.save(therapist);
     }
 
     @Transactional
-    public void deleteTherapist(int _id) {
-        therapistRepository.delete(therapistRepository.findBy_id(_id));
+    public void deleteTherapist(int id) {
+        therapistRepository.delete(therapistRepository.findById(id));
     }
 
 }
