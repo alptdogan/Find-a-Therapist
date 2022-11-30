@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -32,7 +33,7 @@ public class Therapist {
     @NotNull
     private String email;
 
-    private List<Clients> clients;
+    private List<Clients> clients = new ArrayList<>();
 
     @NotBlank
     private String username;

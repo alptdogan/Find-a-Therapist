@@ -49,12 +49,12 @@ public class TherapistController {
 
         therapistService.createTherapist(therapist);
 
-        return "redirect:/therapist";
+        return "redirect:/therapists";
 
     }
 
     @ResponseBody
-    @GetMapping("/update/{_id}")
+    @GetMapping("/update/{id}")
     public String displayTherapistUpdateForm(@PathVariable("id") int id, @RequestBody Therapist therapist, Model model) {
 
         therapistService.updateTherapistById(id, therapist);
@@ -63,42 +63,19 @@ public class TherapistController {
         model.addAttribute("therapist", therapist);
         model.addAttribute("allClients", clients);
 
-        return "new-therapist";
+        return "redirect:/therapists";
 
     }
 
-    @GetMapping("/delete/{_id}")
+    @GetMapping("/delete/{id}")
     public String deleteTherapist(@PathVariable("id") int id, Model model) {
 
         therapistService.getTherapistById(id);
         therapistService.deleteTherapist(id);
 
-        return "redirect:/therapist";
+        return "redirect:/therapists";
 
     }
-
-    /*
-    
-    @GetMapping("/username")
-    public ResponseEntity<Therapist> getTherapistByUsername(@PathVariable String username) {
-        Therapist therapist =  therapistService.getTherapistByUsername(username);
-        return new ResponseEntity<>(therapist, HttpStatus.OK);
-    }
-
-    @GetMapping("/clients/{firstName}")
-    public String getClientByFirstName(@PathVariable String firstName, Model model) {
-        Therapist therapist = (Therapist) therapistService.getClientByFirstName(firstName);
-        model.addAttribute("therapist", therapist);
-        return "list-therapists.html";
-    }
-
-    @GetMapping("/get/{_id}")
-    public ResponseEntity<Therapist> getTherapistById(@PathVariable("id") int id) {
-        Therapist therapist = therapistService.getTherapistById(id);
-        return new ResponseEntity<>(therapist, HttpStatus.OK);
-    }
-
-     */
 
 }
 
