@@ -55,7 +55,7 @@ public class ClientsController {
 
     }
 
-    @DeleteMapping("/delete")
+    @GetMapping("/delete")
     public String deleteClient(@RequestParam("id") int id, Model model) {
 
         clientsService.deleteClient(id);
