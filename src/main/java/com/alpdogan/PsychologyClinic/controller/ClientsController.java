@@ -37,7 +37,7 @@ public class ClientsController {
     }
 
     @PostMapping("/addClient")
-    public String createClient (Model model, Clients client) {
+    public String createClient (@ModelAttribute ("clients") Clients client) {
 
         clientsService.createClient(client);
 

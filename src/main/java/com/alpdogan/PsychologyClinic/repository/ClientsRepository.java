@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClientsRepository extends MongoRepository<Clients, String> {
 
-    Clients findBy_id(int _id);
+    Clients findById(int id);
 
 }

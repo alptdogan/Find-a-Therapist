@@ -21,25 +21,24 @@ public class ClientsService {
         return this.clientsRepository.findAll();
     }
     @Transactional
-    public Clients getClientById(int _id) {
-        return clientsRepository.findBy_id(_id);
+    public Clients getClientById(int id) {
+        return clientsRepository.findById(id);
     }
 
     @Transactional
-    public String createClient(Clients clients) {
-        clientsRepository.save(clients);
-        return "Client Added with id: " + clients.get_id();
-    }
-
-    @Transactional
-    public void updateClientById(int _id, Clients clients) {
-        clients.set_id(_id);
+    public void createClient(Clients clients) {
         clientsRepository.save(clients);
     }
 
     @Transactional
-    public void deleteClient(int _id) {
-        clientsRepository.delete(clientsRepository.findBy_id(_id));
+    public void updateClientById(int id, Clients clients) {
+        clients.setId(id);
+        clientsRepository.save(clients);
+    }
+
+    @Transactional
+    public void deleteClient(int id) {
+        clientsRepository.delete(clientsRepository.findById(id));
     }
 
 }

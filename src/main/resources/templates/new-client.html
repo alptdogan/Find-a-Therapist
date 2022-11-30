@@ -20,49 +20,34 @@
 <div class="container">
 
 
-    <form th:action="@{/clients/savePet}" th:object="${clients}" method="POST">
+    <form action="#" th:action="@{/clients/addClient}" th:object="${clients}" method="POST">
 
 
         <!--  This will be used to bind to the employee that was clicked on (USED FOR UPDATES)-->
         <input type="hidden" th:field="${clients.id}"/>
 
         <div class="form-group row">
-            <input type="text" placeholder="Species" th:field="${clients.firstName}">
-            <span style="color:red" th:if="${#fields.hasErrors('firstName')}"
-                  th:errors="${clients.firstName}">
-			</span>
+            <input type="text" placeholder="First Name" th:field="${clients.firstName}">
         </div>
 
         <div class="form-group row">
-            <input type="text" placeholder="Type" th:field="${clients.lastName}">
-            <span style="color:red" th:if="${#fields.hasErrors('lastName')}"
-                  th:errors="${clients.lastName}">
-			</span>
+            <input type="text" placeholder="Last Name" th:field="${clients.lastName}">
         </div>
 
         <div class="form-group row">
-            <input type="text" placeholder="Name" th:field="${clients.phoneNumber}">
-            <span style="color:red" th:if="${#fields.hasErrors('phoneNumber')}"
-                  th:errors="${clients.phoneNumber}">
-		</span>
+            <input type="text" placeholder="Phone Number" th:field="${clients.phoneNumber}">
         </div>
 
         <div class="form-group row">
-            <input type="date" placeholder="Birthdate" th:field="${clients.email}">
-            <span style="color:red" th:if="${#fields.hasErrors('email')}"
-                  th:errors="${clients.email}">
-		</span>
+            <input type="text" placeholder="Email" th:field="${clients.email}">
         </div>
 
         <div class="form-group row">
-            <input type="text" placeholder="Description" th:field="${clients.diagnosis}">
-            <span style="color:red" th:if="${#fields.hasErrors('diagnosis')}"
-                  th:errors="${clients.diagnosis}">
-			</span>
+            <input type="text" placeholder="Diagnosis" th:field="${clients.diagnosis}">
         </div>
 
 
-        <button class="btn btn-info col-2" type="submit">Create Clients</button>
+        <button class="btn btn-info col-2" type="submit">Create Client</button>
 
     </form>
 </div>

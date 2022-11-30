@@ -18,7 +18,7 @@ import java.util.List;
 public class Clients {
 
     @NotNull
-    public int _id;
+    public int id;
 
     @NotNull
     private String firstName;
