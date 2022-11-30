@@ -30,6 +30,7 @@
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
+            <th>Id</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Phone Number</th>
@@ -40,6 +41,7 @@
         </thead>
         <tbody>
         <tr th:each="aClient : ${clients}">
+            <td th:text="${aClient.id}"/>
             <td th:text="${aClient.firstName}"/>
             <td th:text="${aClient.lastName}"/>
             <td th:text="${aClient.phoneNumber}"/>
@@ -51,7 +53,7 @@
                     Update
                 </a>
 
-                <a th:href="@{/clients/delete/(id=${aClient.id})}"
+                <a th:href="@{/clients/delete(id=${aClient.id})}"
                    class="btn btn-danger btn-sm"
                    onClick="if (!(confirm('Are you sure you want to delete this client?'))) return false">
                     Delete
