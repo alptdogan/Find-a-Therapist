@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -33,6 +34,7 @@ public class Therapist {
     @NotNull
     private String email;
 
+    @DBRef
     private List<Clients> clients = new ArrayList<>();
 
     @NotBlank

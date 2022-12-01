@@ -15,8 +15,8 @@ public class TherapistService {
     @Autowired
     public TherapistRepository therapistRepository;
 
-    public List<Clients> getClientByLastName(String lastName) {
-        return therapistRepository.findByLastName(lastName);
+    public List<Clients> getClientById(int id) {
+        return therapistRepository.findClientsById(id);
     }
     @Transactional
     public List<Therapist> getAllTherapists() {
