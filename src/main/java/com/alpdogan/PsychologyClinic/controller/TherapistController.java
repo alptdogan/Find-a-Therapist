@@ -45,9 +45,8 @@ public class TherapistController {
     }
 
     @PostMapping("/addTherapist")
-    public String createTherapist (Model model, Therapist therapist, @RequestParam int id) {
+    public String createTherapist (@ModelAttribute ("therapist") Therapist therapist) {
 
-        therapistService.getClientById(id);
         therapistService.createTherapist(therapist);
 
         return "redirect:/therapists";

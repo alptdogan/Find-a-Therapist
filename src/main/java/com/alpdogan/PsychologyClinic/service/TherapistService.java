@@ -1,6 +1,7 @@
 package com.alpdogan.PsychologyClinic.service;
 
 import com.alpdogan.PsychologyClinic.entity.Clients;
+import com.alpdogan.PsychologyClinic.repository.ClientsRepository;
 import com.alpdogan.PsychologyClinic.repository.TherapistRepository;
 import com.alpdogan.PsychologyClinic.entity.Therapist;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class TherapistService {
     @Autowired
     public TherapistRepository therapistRepository;
 
+    @Autowired
+    public ClientsRepository clientsRepository;
+
     public List<Clients> getClientById(int id) {
         return therapistRepository.findClientsById(id);
     }
@@ -28,8 +32,12 @@ public class TherapistService {
     }
 
     @Transactional
-    public void createTherapist(Therapist therapist) {
-        therapistRepository.save(therapist);
+    public Therapist createTherapist(Therapist therapist) {
+        if (therapist.getClients() != null && therapist.getClients().size() > 0) {
+            clientsRepository.saveAll(therapist.getClients());
+        }
+
+        return therapistRepository.save(therapist);
     }
 
     @Transactional

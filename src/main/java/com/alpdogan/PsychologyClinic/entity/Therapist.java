@@ -35,7 +35,7 @@ public class Therapist {
     private String email;
 
     @DBRef
-    private List<Clients> clients = new ArrayList<>();
+    private List<Clients> clients;
 
     @NotBlank
     private String username;
