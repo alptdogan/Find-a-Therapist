@@ -24,7 +24,7 @@ public class TherapistController {
     @GetMapping
     public String displayTherapists(Model model) {
 
-        Iterable<Therapist> therapists = therapistService.getAllTherapists();
+        List<Therapist> therapists = therapistService.getAllTherapists();
         model.addAttribute("therapists", therapists);
 
         return "list-therapists";
@@ -45,8 +45,9 @@ public class TherapistController {
     }
 
     @PostMapping("/addTherapist")
-    public String createTherapist (Model model, Therapist therapist, @RequestParam List<Integer> clients) {
+    public String createTherapist (Model model, Therapist therapist, @RequestParam List<Clients> clients) {
 
+        therapistService.getClientByLastName(String.valueOf(clients));
         therapistService.createTherapist(therapist);
 
         return "redirect:/therapists";

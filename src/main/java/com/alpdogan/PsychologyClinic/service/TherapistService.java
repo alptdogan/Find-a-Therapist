@@ -15,12 +15,8 @@ public class TherapistService {
     @Autowired
     public TherapistRepository therapistRepository;
 
-    public Therapist getTherapistByUsername(String username) {
-        return therapistRepository.findByUsername(username);
-    }
-
-    public List<Clients> getClientByFirstName(String firstName) {
-        return therapistRepository.findByFirstName(firstName);
+    public List<Clients> getClientByLastName(String lastName) {
+        return therapistRepository.findByLastName(lastName);
     }
     @Transactional
     public List<Therapist> getAllTherapists() {
@@ -32,9 +28,8 @@ public class TherapistService {
     }
 
     @Transactional
-    public String createTherapist(Therapist therapist) {
+    public void createTherapist(Therapist therapist) {
         therapistRepository.save(therapist);
-        return "Therapist Added with id: " + therapist.getId();
     }
 
     @Transactional

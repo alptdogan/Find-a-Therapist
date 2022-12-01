@@ -48,7 +48,7 @@
             <td th:text="${aTherapist.phoneNumber}"/>
             <td th:text="${aTherapist.address}"/>
             <td th:text="${aTherapist.email}"/>
-            <td th:text="${aTherapist.clients[0].lastName}"/>
+            <td th:text="${aTherapist.clients[].lastName}"/>
             <td>
                 <a th:href="@{/therapists/update(id=${aTherapist.id})}"
                    class="btn btn-info btn-sm">
