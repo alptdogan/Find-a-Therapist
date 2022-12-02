@@ -34,9 +34,6 @@ public class Therapist {
     @NotNull
     private String email;
 
-    @DBRef
-    private List<Clients> clients;
-
     @NotBlank
     private String username;
     @NotBlank
