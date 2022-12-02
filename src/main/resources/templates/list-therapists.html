@@ -36,19 +36,17 @@
             <th>Phone Number</th>
             <th>Address</th>
             <th>Email</th>
-            <th>Clients</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="aTherapist : ${therapist}">
             <td th:text="${aTherapist.id}"/>
-            <td th:text="${aTherapist.name}"/>
-            <td th:text="${aTherapist.lastname}"/>
+            <td th:text="${aTherapist.firstName}"/>
+            <td th:text="${aTherapist.lastName}"/>
             <td th:text="${aTherapist.phoneNumber}"/>
             <td th:text="${aTherapist.address}"/>
             <td th:text="${aTherapist.email}"/>
-            <td th:text="${aTherapist.clients[].lastName}"/>
             <td>
                 <a th:href="@{/therapists/update(id=${aTherapist.id})}"
                    class="btn btn-info btn-sm">
