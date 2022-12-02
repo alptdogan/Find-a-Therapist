@@ -22,17 +22,22 @@ public class SecurityConfiguration {
 
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails user = User.withDefaultPasswordEncoder()
+        UserDetails client = User.withDefaultPasswordEncoder()
                 .username("client")
                 .password("client")
                 .roles("CLIENT")
                 .build();
-        UserDetails admin = User.withDefaultPasswordEncoder()
+        UserDetails therapist = User.withDefaultPasswordEncoder()
                 .username("therapist")
                 .password("therapist")
                 .roles("THERAPIST")
                 .build();
-        return new InMemoryUserDetailsManager(user, admin);
+        UserDetails admin = User.withDefaultPasswordEncoder()
+                .username("admin")
+                .password("admin")
+                .roles("ADMIN")
+                .build();
+        return new InMemoryUserDetailsManager(client, therapist, admin);
     }
 
     @Bean
@@ -42,8 +47,9 @@ public class SecurityConfiguration {
                 .authorizeRequests(auth -> {
                     try {
                         auth.antMatchers("/home").permitAll()
-                        //auth.antMatchers("/user").hasRole("USER");
-                        // auth.antMatchers("/admin").hasRole("ADMIN");
+                                .antMatchers("/clients/**").authenticated()
+                                .antMatchers("/therapists/**").authenticated()
+                                .antMatchers("/dashboard").authenticated()
                         .and().formLogin().loginPage("/login")
                                 .defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll()
                                 .and().logout().logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll();
