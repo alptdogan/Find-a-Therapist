@@ -16,12 +16,6 @@ public class TherapistService {
     @Autowired
     public TherapistRepository therapistRepository;
 
-    @Autowired
-    public ClientsRepository clientsRepository;
-
-    public List<Clients> getClientById(int id) {
-        return therapistRepository.findClientsById(id);
-    }
     @Transactional
     public List<Therapist> getAllTherapists() {
         return this.therapistRepository.findAll();
@@ -32,12 +26,8 @@ public class TherapistService {
     }
 
     @Transactional
-    public Therapist createTherapist(Therapist therapist) {
-        if (therapist.getClients() != null && therapist.getClients().size() > 0) {
-            clientsRepository.saveAll(therapist.getClients());
-        }
-
-        return therapistRepository.save(therapist);
+    public void createTherapist(Therapist therapist) {
+        therapistRepository.save(therapist);
     }
 
     @Transactional
