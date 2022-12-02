@@ -16,6 +16,7 @@
 
 <div th:replace="header :: header">...</div>
 
+
 <section id="home" class="w3l-banner py-5">
   <div class="banner-content">
     <div class="container py-4">
@@ -24,6 +25,12 @@
           <h3 class="mb-lg-4 mb-3">Welcome To My Project!</h3>
           <p class="banner-sub">Find a Therapist App</p>
           <h2>This Project Created by Alptuğ Doğan</h2>
+
+          <a th:href="@{/login}"
+             class="btn btn-success btn-sm">
+            Click to Login
+          </a>
+
         </div>
         <div class="col-md-6 right-banner-2 text-end position-relative mt-md-0 mt-5">
           <div class="banner-style-1 position-absolute">
