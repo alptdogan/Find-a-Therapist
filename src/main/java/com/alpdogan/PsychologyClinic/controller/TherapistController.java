@@ -66,6 +66,16 @@ public class TherapistController {
 
     }
 
+    @GetMapping("/details")
+    public String displayTherapistDetails(@RequestParam("id") int id, Model model) {
+
+        Therapist therapists = therapistService.getTherapistById(id);
+        model.addAttribute("therapist", therapists);
+
+        return "therapist-details";
+
+    }
+
 }
 
 

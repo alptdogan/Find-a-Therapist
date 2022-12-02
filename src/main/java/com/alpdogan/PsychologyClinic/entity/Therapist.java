@@ -27,6 +27,22 @@ public class Therapist {
     private String firstName;
     @NotNull
     private String lastName;
+
+    @NotNull
+    private String graduated;
+
+    @NotNull
+    private String treatmentApproach;
+
+    @NotNull
+    private String specialties;
+
+    @NotNull
+    private String clientFocus;
+
+    @NotNull
+    private String modality;
+
     @NotNull
     private long phoneNumber;
     @NotNull
