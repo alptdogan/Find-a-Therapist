@@ -29,13 +29,13 @@
         </li>
         <li class="nav-item" sec:authorize="isAuthenticated()">
           <a th:classappend="${#httpServletRequest.getRequestURI() == '/therapists' ? 'active':''}"
-             th:href="@{/therapists}" class="nav-link">Therapist</a>
+             th:href="@{/therapists}" class="nav-link">Therapists</a>
         </li>
         <li class="nav-item" sec:authorize="isAuthenticated()">
           <a  th:classappend="${#httpServletRequest.getRequestURI() == '/clients' ? 'active':''}"
               th:href="@{/clients}" class="nav-link">Clients</a>
 
-        </li> <!--Burada değişiklik gerekecek-->
+        </li>
         <li class="nav-item" sec:authorize="isAuthenticated()">
           <a  th:classappend="${#httpServletRequest.getRequestURI() == '/therapists/register' ? 'active':''}"
               th:href="@{/therapists/new}" class="nav-link">Register as a New Therapist</a>
