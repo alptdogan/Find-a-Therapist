@@ -1,6 +1,7 @@
 package com.alpdogan.PsychologyClinic.controller;
 
 import com.alpdogan.PsychologyClinic.entity.Clients;
+import com.alpdogan.PsychologyClinic.entity.Therapist;
 import com.alpdogan.PsychologyClinic.service.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,16 @@ public class ClientsController {
 
     }
 
+    @GetMapping("/register")
+    public String registerClient(Model model) {
+
+        Clients clients = new Clients();
+        model.addAttribute("therapist", clients);
+
+        return "new-client";
+
+    }
+
     @PostMapping("/addClient")
     public String createClient (@ModelAttribute ("clients") Clients client) {
 
@@ -61,6 +72,16 @@ public class ClientsController {
         clientsService.deleteClient(id);
 
         return "redirect:/clients";
+
+    }
+
+    @GetMapping("/details")
+    public String displayClientDetails(@RequestParam("id") int id, Model model) {
+
+        Clients clients = clientsService.getClientById(id);
+        model.addAttribute("clients", clients);
+
+        return "clients-details";
 
     }
 

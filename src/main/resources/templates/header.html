@@ -37,8 +37,13 @@
 
         </li> <!--Burada değişiklik gerekecek-->
         <li class="nav-item" sec:authorize="isAuthenticated()">
-          <a  th:classappend="${#httpServletRequest.getRequestURI() == '/therapists' ? 'active':''}"
-              th:href="@{/therapists}" class="nav-link">Search Therapist</a>
+          <a  th:classappend="${#httpServletRequest.getRequestURI() == '/therapists/register' ? 'active':''}"
+              th:href="@{/therapists/new}" class="nav-link">Register as a New Therapist</a>
+        </li>
+
+        <li class="nav-item" sec:authorize="isAuthenticated()">
+          <a  th:classappend="${#httpServletRequest.getRequestURI() == '/clients/register' ? 'active':''}"
+              th:href="@{/clients/new}" class="nav-link">Register as a New Client</a>
         </li>
 
         <li class="nav-item" sec:authorize="isAnonymous()">

@@ -28,6 +28,16 @@ public class TherapistController {
 
     }
 
+    @GetMapping("/register")
+    public String registerTherapist(Model model) {
+
+        Therapist therapist = new Therapist();
+        model.addAttribute("therapist", therapist);
+
+        return "new-therapist";
+
+    }
+
     @GetMapping("/new")
     public String displayTherapistForm (Model model) {
 
