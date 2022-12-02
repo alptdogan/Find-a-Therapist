@@ -18,14 +18,11 @@ public class TherapistController {
     @Autowired
     private TherapistService therapistService;
 
-    @Autowired
-    private ClientsService clientsService;
-
     @GetMapping
     public String displayTherapists(Model model) {
 
         List<Therapist> therapists = therapistService.getAllTherapists();
-        model.addAttribute("therapists", therapists);
+        model.addAttribute("therapist", therapists);
 
         return "list-therapists";
 
@@ -35,10 +32,7 @@ public class TherapistController {
     public String displayTherapistForm (Model model) {
 
         Therapist therapist = new Therapist();
-        List<Clients> clients = clientsService.getAllClients();
-
         model.addAttribute("therapist", therapist);
-        model.addAttribute("allClients", clients);
 
         return "new-therapist";
 
@@ -53,24 +47,19 @@ public class TherapistController {
 
     }
 
-    @ResponseBody
-    @GetMapping("/update/{id}")
-    public String displayTherapistUpdateForm(@PathVariable("id") int id, @RequestBody Therapist therapist, Model model) {
+    @GetMapping("/update")
+    public String displayTherapistUpdateForm(@RequestParam("id") int id, Model model) {
 
-        therapistService.updateTherapistById(id, therapist);
-        List<Clients> clients = clientsService.getAllClients();
-
+        Therapist therapist = therapistService.getTherapistById(id);
         model.addAttribute("therapist", therapist);
-        model.addAttribute("allClients", clients);
 
-        return "redirect:/therapists";
+        return "new-therapist";
 
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteTherapist(@PathVariable("id") int id, Model model) {
+    @GetMapping("/delete")
+    public String deleteTherapist(@RequestParam("id") int id, Model model) {
 
-        therapistService.getTherapistById(id);
         therapistService.deleteTherapist(id);
 
         return "redirect:/therapists";
