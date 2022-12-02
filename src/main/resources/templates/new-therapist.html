@@ -46,15 +46,6 @@
             <input type="text" placeholder="Email Address" th:field="${therapist.email}">
         </div>
 
-        <div class="form-group row">
-            <select th:field="*{clients}" multiple="multiple">
-                <option th:each = "clients : ${allClients}"
-                        th:value = "${clients.phoneNumber}"
-                        th:text = "${clients.lastName}">
-                </option>
-            </select>
-        </div>
-
         <button class="btn btn-info col-2" type="submit">Create Therapist</button>
 
     </form>
