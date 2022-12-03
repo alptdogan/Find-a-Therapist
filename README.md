@@ -29,4 +29,4 @@ password: admin
 
 App does not actually differs for logins as clients, therapists nor an admin. Might add a registration layer later.
 
-I should also work on authentication which will be updated soon. Have a nice day!
+I should also work on authorization which will be updated soon. Have a nice day!
